@@ -1,0 +1,9 @@
+When generating the certs, these following info were used
+
+CA's countryName = AU, CommonName = example.test
+server's countryName = BN, CommonName = server.test, SANS = server.test
+client's countryName = IN, CommonName = client.test
+
+// Also I needed to edit /etc/hosts file to add  `127.0.0.1 server.test`
+
+// If we don't use SANS, `certificate relies on legacy Common Name field, use SANs instead` error occurred.
