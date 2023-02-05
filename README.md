@@ -1,6 +1,9 @@
 ## Only generate the private key:
 `openssl genrsa -out ca.key 2048`
 
+#### Generate corresponding public key
+`openssl rsa -in private.key -pubout -out public.key`
+
 ## Generate both caKey & caCert:
 `openssl req -newkey rsa:2048 -nodes -x509 -days 365 -out ca.crt -keyout ca.key`
 
@@ -40,9 +43,13 @@
 -CAcreateserial = create serial if doesn't exist
 
 
-## Using SAN(subject alternative name)
+### Using SAN(subject alternative name)
 `echo "subjectAltName=DNS:some.host" > altsubj.ext`
 `openssl x509  -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 365 -sha256 -extfile altsubj.ext`
+
+### self-signed
+`openssl x509 -req -in example.csr -signkey example.key -out example.crt -days 3650 -sha256 -extfile altsubj.ext`
+-signkey = to sign self cert
 
 
 
